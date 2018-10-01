@@ -2,9 +2,14 @@ public class RemoteControlTest { //Client
     public static void main(String[] args){
         RemoteControlWithUndo remote = new RemoteControlWithUndo(); //Invoker
 
+        CeilingFan bedroomCeilingFan = new CeilingFan("Bedroom");
         Light livingRoomLight = new Light();
         GarageDoor garageDoor = new GarageDoor();
         Stereo stereo = new Stereo("Living Room");
+
+        CeilingFanMediumCommand ceilingFanMedium = new CeilingFanMediumCommand(bedroomCeilingFan);
+        CeilingFanHighCommand ceilingFanHigh = new CeilingFanHighCommand(bedroomCeilingFan);
+        CeilingFanOffCommand ceilingFanOff = new CeilingFanOffCommand(bedroomCeilingFan);
 
         LightOnCommand livingRoomLightOn = new LightOnCommand(livingRoomLight);
         LightOffCommand livingRoomLightOff = new LightOffCommand(livingRoomLight);
@@ -18,6 +23,8 @@ public class RemoteControlTest { //Client
         remote.setCommand(0, livingRoomLightOn, livingRoomLightOff);
         remote.setCommand(1, garageDoorOpenCommand, garageDoorCloseCommand);
         remote.setCommand(2, stereoOnWithCDCommand, stereoOffCommand);
+        remote.setCommand(3, ceilingFanMedium, ceilingFanOff);
+        remote.setCommand(4, ceilingFanHigh, ceilingFanOff);
 
         System.out.println(remote);
 
@@ -29,6 +36,12 @@ public class RemoteControlTest { //Client
         remote.offButtonWasPushed(1);
         remote.onButtonWasPushed(2);
         remote.offButtonWasPushed(2);
+        remote.undoButtonWasPushed();
+        remote.onButtonWasPushed(4);
+        remote.offButtonWasPushed(4);
+        remote.undoButtonWasPushed();
+        remote.onButtonWasPushed(3);
+        System.out.println(remote);
         remote.undoButtonWasPushed();
     }
 }
