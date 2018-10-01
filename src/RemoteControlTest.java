@@ -1,8 +1,6 @@
-import java.rmi.Remote;
-
 public class RemoteControlTest { //Client
     public static void main(String[] args){
-        RemoteControl remote = new RemoteControl(); //Invoker
+        RemoteControlWithUndo remote = new RemoteControlWithUndo(); //Invoker
 
         Light livingRoomLight = new Light();
         GarageDoor garageDoor = new GarageDoor();
@@ -25,9 +23,12 @@ public class RemoteControlTest { //Client
 
         remote.onButtonWasPushed(0);
         remote.offButtonWasPushed(0);
+        remote.undoButtonWasPushed();
         remote.onButtonWasPushed(1);
+        remote.undoButtonWasPushed();
         remote.offButtonWasPushed(1);
         remote.onButtonWasPushed(2);
         remote.offButtonWasPushed(2);
+        remote.undoButtonWasPushed();
     }
 }
