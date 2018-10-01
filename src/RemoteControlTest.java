@@ -20,11 +20,18 @@ public class RemoteControlTest { //Client
         StereoOnWithCDCommand stereoOnWithCDCommand = new StereoOnWithCDCommand(stereo);
         StereoOffCommand stereoOffCommand = new StereoOffCommand(stereo);
 
+        Command[] partyOn = {livingRoomLightOn, livingRoomLightOff, stereoOnWithCDCommand};
+        Command[] partyOff = {livingRoomLightOff, livingRoomLightOn, stereoOffCommand};
+
+        MacroCommand partyOnMacro = new MacroCommand(partyOn);
+        MacroCommand partyOffMacro = new MacroCommand(partyOff);
+
         remote.setCommand(0, livingRoomLightOn, livingRoomLightOff);
         remote.setCommand(1, garageDoorOpenCommand, garageDoorCloseCommand);
         remote.setCommand(2, stereoOnWithCDCommand, stereoOffCommand);
         remote.setCommand(3, ceilingFanMedium, ceilingFanOff);
         remote.setCommand(4, ceilingFanHigh, ceilingFanOff);
+        remote.setCommand(5, partyOnMacro, partyOffMacro);
 
         System.out.println(remote);
 
@@ -42,6 +49,9 @@ public class RemoteControlTest { //Client
         remote.undoButtonWasPushed();
         remote.onButtonWasPushed(3);
         System.out.println(remote);
+        remote.undoButtonWasPushed();
+        remote.onButtonWasPushed(5);
+        remote.offButtonWasPushed(5);
         remote.undoButtonWasPushed();
     }
 }
